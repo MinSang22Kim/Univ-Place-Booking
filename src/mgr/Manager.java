@@ -3,7 +3,11 @@ package mgr;
 import Booking.BookingInfo;
 import Booking.User;
 import Fields.*;
+<<<<<<< HEAD
 import UI.Rooms.*;
+=======
+import Rooms.*;
+>>>>>>> 92ae432 (기능 구현)
 
 import java.io.File;
 import java.io.IOException;
