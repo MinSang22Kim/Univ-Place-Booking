@@ -10,52 +10,55 @@ public class Sheet {
     public String name;
     public ArrayList<BookingInfo> bookingInfo = new ArrayList<>();
 
-    public Sheet(String name)
-    {
+    public Sheet(String name) {
         this.name = name;
     }
 
-    public void addBooking(User user, String date, int startHour, int endHour)
-    {
+    public void addBooking(User user, String date, int startHour, int endHour) {
         bookingInfo.add(new BookingInfo(user, date, startHour, endHour));
     }
 
-    public boolean IsBooking()
-    {
+    public boolean IsBooking() {
         return !bookingInfo.isEmpty();
     }
 
-    public void print()
-    {
-        if(bookingInfo.isEmpty())
-        {
+    public void print() {
+        if (bookingInfo.isEmpty()) {
             System.out.format("(%s) - 예약자가 없습니다.\n", name);
-        }else {
+        } else {
             System.out.format("(%s) - 예약자가 %d명 있습니다..\n", name, bookingInfo.size());
-            for(var booking : bookingInfo)
+            for (var booking : bookingInfo)
                 booking.print();
         }
     }
 
-    public void printUser(String name,String code ){
-        if(!bookingInfo.isEmpty()){
-            for(var booking : bookingInfo) {
+    public void printUser(String name, String code) {
+        if (!bookingInfo.isEmpty()) {
+            for (var booking : bookingInfo) {
                 System.out.format("\t%s(%s)  ", name, code);
-                System.out.printf("[%s] ",this.name);
+                System.out.printf("[%s] ", this.name);
                 booking.print();
             }
         }
     }
-    public boolean matches(String kwd)
-    {
-        if(name.equals(kwd))
+
+    public boolean matches(String kwd) {
+        if (name.equals(kwd))
             return true;
 
-        for(var booking : bookingInfo)
-        {
-            if(booking.matches(kwd))
+        for (var booking : bookingInfo) {
+            if (booking.matches(kwd))
                 return true;
         }
         return false;
     }
+
+    public BookingInfo findBookigInfo(User user, String date, int startHour, int endHour) {
+        for (BookingInfo b : bookingInfo) {
+            if (b.user.equals(user) && b.date.equals(date) && b.startHour == startHour && b.endHour == endHour)
+                return b;
+        }
+        return null;
+    }
+
 }

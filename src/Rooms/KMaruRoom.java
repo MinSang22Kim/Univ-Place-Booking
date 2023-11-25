@@ -5,6 +5,7 @@ import Booking.User;
 import mgr.Manageable;
 import mgr.Sheet;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,22 +15,21 @@ public class KMaruRoom implements Manageable {
     String name;
     ArrayList<Sheet> sheets = new ArrayList<>();
 
-    public KMaruRoom(int num)
-    {
+    public KMaruRoom(int num) {
         number = num;
     }
+
     @Override
     public boolean matches(String kwd) {
-        if(code.contains(kwd) || name.contains(kwd))
+        if (code.contains(kwd) || name.contains(kwd))
             return true;
         return false;
     }
 
     @Override
     public boolean bookingMatches(String kwd) {
-        for(var sheet : sheets)
-        {
-            if(sheet.matches(kwd))
+        for (var sheet : sheets) {
+            if (sheet.matches(kwd))
                 sheet.print();
         }
         return false;
@@ -43,7 +43,7 @@ public class KMaruRoom implements Manageable {
     @Override
     public void bookingPrint() {
         System.out.format("%s(%s) 좌석별 예약 현황\n", name, code);
-        for(var sheet : sheets)
+        for (var sheet : sheets)
             sheet.print();
     }
 
@@ -58,8 +58,8 @@ public class KMaruRoom implements Manageable {
         code = scanner.next();
         name = scanner.next();
         String content = scanner.next();
-        while (true){
-            if(content.equals("0"))
+        while (true) {
+            if (content.equals("0"))
                 break;
             sheets.add(new Sheet(content));
             content = scanner.next();
@@ -68,12 +68,12 @@ public class KMaruRoom implements Manageable {
     }
 
     @Override
-    public void bookingMatchesUser(String kwd){
-        for(var sheet : sheets){
-                if(sheet.matches(kwd)){
-                   // System.out.format("\t%s(%s)  ", name, code);
-                    sheet.printUser(name,code);
-                }
+    public void bookingMatchesUser(String kwd) {
+        for (var sheet : sheets) {
+            if (sheet.matches(kwd)) {
+                // System.out.format("\t%s(%s)  ", name, code);
+                sheet.printUser(name, code);
+            }
         }
     }
 
@@ -82,8 +82,19 @@ public class KMaruRoom implements Manageable {
     @Override
     public boolean IsBooking(Sheet sheet, User user, String date, int startHour, int endHour) {
         ArrayList<BookingInfo> bookingInfos = sheet.bookingInfo;
-        BookingInfo bookingInfo = new BookingInfo(null,date, startHour, endHour);
-        for(var info : bookingInfos) {
+        BookingInfo bookingInfo = new BookingInfo(null, date, startHour, endHour);
+        for (var info : bookingInfos) {
+            if (!info.dateEquals(bookingInfo))
+                return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean addBooking(Sheet sheet, User user, String date, int startHour, int endHour) {
+        ArrayList<BookingInfo> bookingInfos = sheet.bookingInfo;
+        BookingInfo bookingInfo = new BookingInfo(null, date, startHour, endHour);
+        for (var info : bookingInfos) {
             if (!info.dateEquals(bookingInfo))
                 return false;
         }
@@ -94,19 +105,18 @@ public class KMaruRoom implements Manageable {
     @Override
     public Sheet getSheet(String name) {
         Sheet selectSheet = null;
-        do {
-            for(var sheet : sheets)
-            {
-                if(sheet.name.equals(name))
-                    selectSheet = sheet;
+        for (var sheet : sheets) {
+            if (sheet.name.equals(name)) {
+                selectSheet = sheet;
+                return selectSheet;
             }
-        }while (selectSheet == null);
-
-        return selectSheet;
+        }
+        return null;
     }
 
     @Override
     public boolean IsNotSheet() {
         return false;
     }
+
 }
