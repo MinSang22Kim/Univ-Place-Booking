@@ -14,22 +14,22 @@ public class TeamProjectRoom implements Manageable {
     String name;
     ArrayList<BookingInfo> bookingInfos = new ArrayList<>();
     int count;
-    public TeamProjectRoom(int num)
-    {
+
+    public TeamProjectRoom(int num) {
         number = num;
     }
+
     @Override
     public boolean matches(String kwd) {
-        if(code.contains(kwd) || name.contains(kwd))
+        if (code.contains(kwd) || name.contains(kwd))
             return true;
         return false;
     }
 
     @Override
     public boolean bookingMatches(String kwd) {
-        for(var booking : bookingInfos)
-        {
-            if(booking.matches(kwd)) {
+        for (var booking : bookingInfos) {
+            if (booking.matches(kwd)) {
                 booking.print();
                 return true;
             }
@@ -45,12 +45,11 @@ public class TeamProjectRoom implements Manageable {
     @Override
     public void bookingPrint() {
 
-        if(bookingInfos.isEmpty())
-        {
+        if (bookingInfos.isEmpty()) {
             System.out.format("%s(%s)에 예약자가 없습니다.\n", name, code);
-        }else {
+        } else {
             System.out.format("%s(%s) 예약자 현황\n", name, code);
-            for(var booking : bookingInfos)
+            for (var booking : bookingInfos)
                 booking.print();
         }
     }
@@ -69,23 +68,32 @@ public class TeamProjectRoom implements Manageable {
     }
 
     @Override
-    public void bookingMatchesUser(String kwd){
-        for(BookingInfo b : bookingInfos){
-            if(b.matches(kwd)){
-                    System.out.format("\t%s(%s)  ", name, code);
-                    b.print();
-                }
+    public void bookingMatchesUser(String kwd) {
+        for (BookingInfo b : bookingInfos) {
+            if (b.matches(kwd)) {
+                System.out.format("\t%s(%s)  ", name, code);
+                b.print();
             }
+        }
     }
 
     @Override
-    public boolean IsBooking(Sheet sheet, User user,String date, int startHour, int endHour) {
+    public boolean IsBooking(Sheet sheet, User user, String date, int startHour, int endHour) {
         BookingInfo bookingInfo = new BookingInfo(user, date, startHour, endHour);
-        for(var info : bookingInfos) {
+        for (var info : bookingInfos) {
             if (!info.dateEquals(bookingInfo))
                 return false;
         }
+        return true;
+    }
 
+    @Override
+    public boolean addBooking(Sheet sheet, User user, String date, int startHour, int endHour) {
+        BookingInfo bookingInfo = new BookingInfo(user, date, startHour, endHour);
+        for (var info : bookingInfos) {
+            if (!info.dateEquals(bookingInfo))
+                return false;
+        }
         bookingInfos.add(bookingInfo);
         return true;
     }
@@ -100,4 +108,5 @@ public class TeamProjectRoom implements Manageable {
     public boolean IsNotSheet() {
         return true;
     }
+
 }

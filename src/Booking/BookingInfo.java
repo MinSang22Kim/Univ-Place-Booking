@@ -1,4 +1,6 @@
 package Booking;
+
+import javax.swing.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -6,21 +8,20 @@ import java.util.Date;
 
 public class BookingInfo {
 
-    User user;
+    public User user;
 
-    String date;
-    int startHour;
-    int endHour;
-    public BookingInfo(User user, String date, int startHour, int endHour)
-    {
+    public String date;
+    public int startHour;
+    public int endHour;
+
+    public BookingInfo(User user, String date, int startHour, int endHour) {
         this.user = user;
         this.date = date;
         this.startHour = startHour;
         this.endHour = endHour;
     }
 
-    public void print()
-    {
+    public void print() {
         String[] date_split = date.split("-");
         int year = Integer.parseInt(date_split[0]);
         int month = Integer.parseInt(date_split[1]);
@@ -29,8 +30,8 @@ public class BookingInfo {
                 year, month, day, startHour, endHour, user.name, user.code);
     }
 
-    public boolean dateEquals(BookingInfo info)
-    {
+
+    public boolean dateEquals(BookingInfo info) {
         boolean date_equal = !info.date.equals(date);
         boolean time_equal = endHour <= info.startHour || startHour >= info.endHour;
 
@@ -38,11 +39,10 @@ public class BookingInfo {
     }
 
 
-    public boolean matches(String kwd)
-    {
-        if(user.name.contains(kwd))
+    public boolean matches(String kwd) {
+        if (user.name.contains(kwd))
             return true;
-        else if(user.code.contains(kwd))
+        else if (user.code.contains(kwd))
             return true;
         return false;
     }

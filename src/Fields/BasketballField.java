@@ -5,6 +5,7 @@ import Booking.User;
 import mgr.Sheet;
 import mgr.Manageable;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,23 +17,21 @@ public class BasketballField implements Manageable {
     int count;
     ArrayList<Sheet> sheets = new ArrayList<>();
 
-    public BasketballField(int num)
-    {
+    public BasketballField(int num) {
         number = num;
     }
 
     @Override
     public boolean matches(String kwd) {
-        if(code.contains(kwd) || name.contains(kwd))
+        if (code.contains(kwd) || name.contains(kwd))
             return true;
         return false;
     }
 
     @Override
     public boolean bookingMatches(String kwd) {
-        for(var sheet : sheets)
-        {
-            if(sheet.matches(kwd)) {
+        for (var sheet : sheets) {
+            if (sheet.matches(kwd)) {
                 sheet.print();
                 return true;
             }
@@ -41,11 +40,11 @@ public class BasketballField implements Manageable {
     }
 
     @Override
-    public void bookingMatchesUser(String kwd){
-        for(var sheet : sheets){
-            if(sheet.matches(kwd)){
+    public void bookingMatchesUser(String kwd) {
+        for (var sheet : sheets) {
+            if (sheet.matches(kwd)) {
                 // System.out.format("\t%s(%s)  ", name, code);
-                sheet.printUser(name,code);
+                sheet.printUser(name, code);
             }
         }
     }
@@ -58,7 +57,7 @@ public class BasketballField implements Manageable {
     @Override
     public void bookingPrint() {
         System.out.format("%s(%s) 구역별 예약 현황\n", name, code);
-        for(var sheet : sheets)
+        for (var sheet : sheets)
             sheet.print();
     }
 
@@ -74,8 +73,8 @@ public class BasketballField implements Manageable {
         name = scanner.next();
         count = scanner.nextInt();
         String content = scanner.next();
-        while (true){
-            if(content.equals("0"))
+        while (true) {
+            if (content.equals("0"))
                 break;
             sheets.add(new Sheet(content));
             content = scanner.next();
@@ -87,7 +86,18 @@ public class BasketballField implements Manageable {
     public boolean IsBooking(Sheet sheet, User user, String date, int startHour, int endHour) {
         ArrayList<BookingInfo> bookingInfos = sheet.bookingInfo;
         BookingInfo bookingInfo = new BookingInfo(null, date, startHour, endHour);
-        for(var info : bookingInfos) {
+        for (var info : bookingInfos) {
+            if (!info.dateEquals(bookingInfo))
+                return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean addBooking(Sheet sheet, User user, String date, int startHour, int endHour) {
+        ArrayList<BookingInfo> bookingInfos = sheet.bookingInfo;
+        BookingInfo bookingInfo = new BookingInfo(null, date, startHour, endHour);
+        for (var info : bookingInfos) {
             if (!info.dateEquals(bookingInfo))
                 return false;
         }
@@ -98,19 +108,18 @@ public class BasketballField implements Manageable {
     @Override
     public Sheet getSheet(String name) {
         Sheet selectSheet = null;
-        do {
-            for(var sheet : sheets)
-            {
-                if(sheet.name.equals(name))
-                    selectSheet = sheet;
+        for (var sheet : sheets) {
+            if (sheet.name.equals(name)) {
+                selectSheet = sheet;
+                return selectSheet;
             }
-        }while (selectSheet == null);
-
-        return selectSheet;
+        }
+        return null;
     }
 
     @Override
     public boolean IsNotSheet() {
         return false;
     }
+
 }
