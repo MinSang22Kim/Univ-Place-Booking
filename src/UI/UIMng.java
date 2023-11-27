@@ -12,7 +12,7 @@ import java.sql.Time;
 
 public class UIMng {
     JFrame mainFrame;
-    JPanel cardPanel;   //cardPanel
+    JPanel cardPanel;
     CardLayout cardLayout;
 
     JPanel placeBookingPanel;
