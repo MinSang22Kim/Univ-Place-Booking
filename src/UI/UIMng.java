@@ -82,7 +82,7 @@ public class UIMng {
         kguIcon = new ImageLabel("resource/kgu_logo.png", 10, 10);
         kguIcon.setFontAndText(mainFont, "예약 - K-AGORA");
 
-        mainFrame.add(kguIcon);
+        mainPanel.add(kguIcon);
     }
 
 
@@ -94,11 +94,6 @@ public class UIMng {
         int textHeight = metrics.getHeight();
 
         return new Point(textWidth, textHeight);
-    }
-
-    void run()
-    {
-        System.out.println("프로그램 시작");
     }
 
     public static void main(String[] args) {

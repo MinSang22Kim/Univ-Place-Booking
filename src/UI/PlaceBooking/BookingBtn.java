@@ -13,5 +13,4 @@ public class BookingBtn extends JButton {
         setText(DEFINE.BOOKING_BTN);
         setBounds(bookingPos.x, bookingPos.y, area.x, area.y);
     }
-
 }
