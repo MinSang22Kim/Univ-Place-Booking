@@ -31,6 +31,7 @@ public class DaySelectPanel extends JPanel {
             });
             btn.setFont(UIMng.getInstance().subFont);
             btn.setBackground(Color.gray);
+            btn.setOpaque(true);
             add(btn);
             weekRadios.add(btn);
             weekGroup.add(btn);

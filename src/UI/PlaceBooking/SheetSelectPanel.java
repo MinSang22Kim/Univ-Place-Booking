@@ -13,6 +13,8 @@ public class SheetSelectPanel extends JPanel {
     public SheetSelectPanel()
     {
         GridLayout layout = new GridLayout(4, 6);
+        layout.setHgap(5);
+        layout.setVgap(5);
         setLayout(layout);
         setSize(700,450);
         setLocation(80,150);
@@ -33,6 +35,8 @@ public class SheetSelectPanel extends JPanel {
 
             btn.setFont(UIMng.getInstance().subFont);
             btn.setBackground(Color.gray);
+            btn.setOpaque(true);
+            btn.setBorderPainted(false);
             add(btn);
             sheets.add(btn);
         }

@@ -33,13 +33,16 @@ public class TimeSelectPanel extends JPanel {
         startTimeComboBox = new JComboBox<>();
         endTimeComboBox = new JComboBox<>();
 
+        startTimeComboBox.setOpaque(true);
+
+
 
         startTimeComboBox.setLayout(null);
-//        startTimeComboBox.setBounds(startPos.x, startPos.y, area.x, area.y);
+        startTimeComboBox.setSize(area.x, area.y);
         startTimeComboBox.setFont(UIMng.getInstance().subFont);
 
         endTimeComboBox.setLayout(null);
-//        endTimeComboBox.setBounds(endPos.x, endPos.y, area.x, area.y);
+        endTimeComboBox.setSize(area.x, area.y);
         endTimeComboBox.setFont(UIMng.getInstance().subFont);
 
         for(int i=0;i<24;i++)

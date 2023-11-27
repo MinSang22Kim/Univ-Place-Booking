@@ -7,10 +7,8 @@ import UI.PlaceBooking.TimeSelectPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageConsumer;
-import java.sql.Time;
 
-public class UIMng {
+public class UIMng  implements Runnable{
     JFrame mainFrame;
     JPanel cardPanel;
     CardLayout cardLayout;
@@ -43,6 +41,14 @@ public class UIMng {
 
     public void Init()
     {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("javax.swing.plaf.metal");
+        }catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
         mainFrame = new JFrame("학교 시설 예약 프로그램");
         mainFrame.setBounds(300,300, SCREEN_SIZE.x, SCREEN_SIZE.y);
         cardLayout = new CardLayout();
@@ -92,6 +98,10 @@ public class UIMng {
     }
 
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new UIMng());
+    }
+    @Override
+    public void run() {
         UIMng.getInstance().Init();
     }
 }
