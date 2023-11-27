@@ -3,7 +3,7 @@ package mgr;
 import Booking.BookingInfo;
 import Booking.User;
 import Fields.*;
-import Rooms.*;
+import UI.Rooms.*;
 
 import java.io.File;
 import java.io.IOException;

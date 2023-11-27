@@ -59,7 +59,7 @@ public class UIMng  implements Runnable{
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setResizable(false);
 
-        mainFrame.add(new KGULogo("resource/kgu_logo.png", 10, 10));
+        mainFrame.add(new KGULogo("image/kgu_logo.png", 10, 10));
         mainFrame.getContentPane().add(cardPanel, BorderLayout.CENTER);
 
         InitPlaceBooking();

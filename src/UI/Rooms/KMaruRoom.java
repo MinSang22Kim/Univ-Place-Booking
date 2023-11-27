@@ -1,4 +1,4 @@
-package Rooms;
+package UI.Rooms;
 
 import Booking.BookingInfo;
 import Booking.User;
