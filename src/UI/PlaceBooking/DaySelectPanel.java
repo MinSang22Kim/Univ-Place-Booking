@@ -13,10 +13,9 @@ public class DaySelectPanel extends JPanel {
     ButtonGroup weekGroup = new ButtonGroup();
     public DaySelectPanel()
     {
-        super(new GridLayout(1,7));
+        setLayout(new GridLayout(1,7));
         setSize(700,40);
-        setLocation(150,65);
-
+        setLocation(150,70);
         for (int i = 0; i < 7; i++)
         {
             JRadioButton btn = new JRadioButton(String.valueOf(i+1));

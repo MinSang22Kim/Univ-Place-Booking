@@ -9,6 +9,7 @@ public class ImageLabel extends JLabel {
     int y;
     ImageLabel(String path, int x, int y)
     {
+        System.out.println("AA");
         imageIcon = new ImageIcon(path);
         setIcon(imageIcon);
         setBounds(x, y, imageIcon.getIconWidth(), imageIcon.getIconHeight());

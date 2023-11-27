@@ -17,8 +17,8 @@ public class SheetSelectPanel extends JPanel {
         setSize(700,450);
         setLocation(80,150);
 
-
-        for(int i=0;i<layout.getColumns() * layout.getRows();i++)
+        int total = layout.getColumns() * layout.getRows();
+        for(int i=0;i<total;i++)
         {
             JButton btn = new JButton("A"+String.valueOf(+i+1));
 

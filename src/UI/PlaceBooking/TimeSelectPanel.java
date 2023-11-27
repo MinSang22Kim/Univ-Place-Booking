@@ -17,18 +17,30 @@ public class TimeSelectPanel extends JPanel {
     final Point area = new Point(100,40);
     public TimeSelectPanel()
     {
+        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setBounds(820,200, 100,160);
+
         startTimeLabel = new JLabel(DEFINE.STARTTIME_LEBEL);
         endTimeLabel = new JLabel(DEFINE.ENDTTIME_LABEL);
 
         startTimeLabel.setFont(UIMng.getInstance().subFont);
         endTimeLabel.setFont(UIMng.getInstance().subFont);
 
-        startTimeLabel.setBounds(startPos.x, startPos.y - area.y, area.x, area.y);
-        endTimeLabel.setBounds(endPos.x, endPos.y - area.y, area.x, area.y);
+//        startTimeLabel.setBounds(startPos.x, startPos.y - area.y, area.x, area.y);
+//        endTimeLabel.setBounds(endPos.x, endPos.y - area.y, area.x, area.y);
 
 
         startTimeComboBox = new JComboBox<>();
         endTimeComboBox = new JComboBox<>();
+
+
+        startTimeComboBox.setLayout(null);
+//        startTimeComboBox.setBounds(startPos.x, startPos.y, area.x, area.y);
+        startTimeComboBox.setFont(UIMng.getInstance().subFont);
+
+        endTimeComboBox.setLayout(null);
+//        endTimeComboBox.setBounds(endPos.x, endPos.y, area.x, area.y);
+        endTimeComboBox.setFont(UIMng.getInstance().subFont);
 
         for(int i=0;i<24;i++)
         {
@@ -36,17 +48,13 @@ public class TimeSelectPanel extends JPanel {
             endTimeComboBox.addItem(String.valueOf(i)+"시");
         }
 
-        startTimeComboBox.setLayout(null);
-        startTimeComboBox.setBounds(startPos.x, startPos.y, area.x, area.y);
-        startTimeComboBox.setFont(UIMng.getInstance().subFont);
+        startTimeComboBox.setVisible(true);
+        endTimeComboBox.setVisible(true);
 
-        endTimeComboBox.setLayout(null);
-        endTimeComboBox.setBounds(endPos.x, endPos.y, area.x, area.y);
-        endTimeComboBox.setFont(UIMng.getInstance().subFont);
-
-        add(startTimeComboBox);
-        add(endTimeComboBox);
         add(startTimeLabel);
+        add(startTimeComboBox);
         add(endTimeLabel);
+        add(endTimeComboBox);
+
     }
 }

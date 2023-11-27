@@ -12,7 +12,7 @@ import java.sql.Time;
 
 public class UIMng {
     JFrame mainFrame;
-    JPanel mainPanel;   //cardPanel
+    JPanel cardPanel;   //cardPanel
     CardLayout cardLayout;
 
     JPanel placeBookingPanel;
@@ -22,7 +22,7 @@ public class UIMng {
     TimeSelectPanel timeSelectPanel;
     BookingBtn bookingBtn;
 
-    ImageLabel kguIcon;
+    KGULogo kguIcon;
 
     public final Font mainFont = new Font(DEFINE.NATURE_GOTHIC, Font.BOLD, 28);
     public final Font subFont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 22);
@@ -43,25 +43,22 @@ public class UIMng {
 
     public void Init()
     {
-        mainFrame = new JFrame();
+        mainFrame = new JFrame("학교 시설 예약 프로그램");
+        mainFrame.setBounds(300,300, SCREEN_SIZE.x, SCREEN_SIZE.y);
         cardLayout = new CardLayout();
-        mainPanel = new JPanel(cardLayout);
-        mainPanel.setSize(SCREEN_SIZE.x,SCREEN_SIZE.y);
-        mainFrame.setSize(SCREEN_SIZE.x,SCREEN_SIZE.y);
-        mainFrame.setLocation(300,300);
-        mainFrame.setTitle("학교 시설 예약 프로그램");
-        mainFrame.setLayout(new BorderLayout());
-        mainFrame.setVisible(true);
-        mainFrame.setResizable(false);
-        mainFrame.getContentPane().add(mainPanel);
+        cardPanel= new JPanel(cardLayout);
+        cardPanel.setSize(SCREEN_SIZE.x,SCREEN_SIZE.y);
 
-        sheetSelectPanel = new SheetSelectPanel();
-        timeSelectPanel = new TimeSelectPanel();
-        daySelectPanel = new DaySelectPanel();
-        bookingBtn = new BookingBtn();
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setLayout(new BorderLayout());
+        mainFrame.setResizable(false);
+
+        mainFrame.add(new KGULogo("resource/kgu_logo.png", 10, 10));
+        mainFrame.getContentPane().add(cardPanel, BorderLayout.CENTER);
 
         InitPlaceBooking();
-        IconLoad();
+        cardLayout.show(cardPanel, DEFINE.SHEET_SELECT_PANEL);
+        mainFrame.setVisible(true);
     }
 
     void InitPlaceBooking()
@@ -70,19 +67,17 @@ public class UIMng {
         placeBookingPanel.setLayout(null);
         placeBookingPanel.setSize(SCREEN_SIZE.x,SCREEN_SIZE.y);
 
+        sheetSelectPanel = new SheetSelectPanel();
+        timeSelectPanel = new TimeSelectPanel();
+        daySelectPanel = new DaySelectPanel();
+        bookingBtn = new BookingBtn();
+
         placeBookingPanel.add(daySelectPanel);
         placeBookingPanel.add(sheetSelectPanel);
         placeBookingPanel.add(timeSelectPanel);
         placeBookingPanel.add(bookingBtn);
-        mainPanel.add(placeBookingPanel, DEFINE.SHEET_SELECT_PANEL);
-    }
 
-    void IconLoad()
-    {
-        kguIcon = new ImageLabel("resource/kgu_logo.png", 10, 10);
-        kguIcon.setFontAndText(mainFont, "예약 - K-AGORA");
-
-        mainPanel.add(kguIcon);
+        cardPanel.add(placeBookingPanel, DEFINE.SHEET_SELECT_PANEL);
     }
 
 
