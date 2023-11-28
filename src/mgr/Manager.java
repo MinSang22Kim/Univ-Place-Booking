@@ -4,6 +4,7 @@ import Booking.BookingInfo;
 import Booking.User;
 import Fields.*;
 import Rooms.*;
+import function.Booking;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +18,9 @@ public class Manager {
     ArrayList<String> weekDates = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     Scanner scanner = new Scanner(System.in);
-    ArrayList<Manageable> mList = new ArrayList<>();
+    public ArrayList<Manageable> mList = new ArrayList<>();
+
+    public User user = null;
 
     static ArrayList<User> userList = new ArrayList<>();
 
@@ -41,6 +44,15 @@ public class Manager {
         return filein;
     }
 
+    public boolean login(String code, String password) {
+        for (User u : userList) {
+            if (u.login(code, password)) {
+                this.user = u;
+                return true;
+            }
+        }
+        return false;
+    }
 
     void printAllRooms() {
         for (Manageable m : mList)
@@ -96,7 +108,42 @@ public class Manager {
         }
     }
 
-    Manageable find(String name) {
+    //유저정보 추가하는 메소드
+    void readUData() {
+        Scanner file = openFile("InputData/user_input.txt");
+        User u = null;
+        while (file.hasNext()) {
+            u = new User();
+            u.read(file);
+            userList.add(u);
+        }
+    }
+
+    //예약정보 읽어와서 추가하는 메소드
+    void readRSData() {
+        Scanner file = openFile("InputData/reservation_input.txt"); //예약 날짜는 발표 날짜에 따라 수정해야 함
+        Manageable m = null;
+        Sheet s = null;
+        User u = null;
+        while (file.hasNext()) {
+            String name = file.next();
+            String sheetname = file.next();
+            String date = file.next();
+            String time = file.next();
+            String userCode = file.next();
+            m = find(name);
+            if (!m.IsNotSheet())
+                s = m.getSheet(sheetname);
+            u = findUser(userCode);
+            String[] time_split = time.split("-");
+            int starttime = Integer.parseInt(time_split[0]);
+            int endtime = Integer.parseInt(time_split[1]);
+            m.IsBooking(s, u, date, starttime, endtime);
+
+        }
+    }
+
+    public Manageable find(String name) {
         for (Manageable m : mList) {
             if (m.matches(name))
                 return m;
@@ -104,129 +151,7 @@ public class Manager {
         return null;
     }
 
-    void Search() {
-        System.out.println("검색 방법을 선택하세요.");
-        System.out.print("(1) 장소(좌석) 검색 (2) 예약검색 (기타) 나가기 : ");
-        int select = scanner.nextInt();
-        String name;
-        switch (select) {
-            case 1:
-                System.out.print("장소명 또는 코드, 좌석 번호를 입력하세요 : ");
-                name = scanner.next();
-                for (Manageable m : mList)
-                    if (m.matches(name))
-                        m.bookingPrint();
-                break;
-            case 2:
-                System.out.print("예약자의 학번 또는 이름을 입력하세요 : ");
-                name = scanner.next();
-                for (Manageable m : mList) {
-                    m.bookingMatchesUser(name);
-                }
-                break;
-        }
-
-    }
-
-    void Booking() {
-        User user = null;
-        String date = null;
-        String time = null;
-        System.out.print("예약할 장소의 이름 또는 코드를 입력해 주세요 : ");
-        Manageable m = null;
-        while (true) {
-            String name = scanner.next();
-            m = find(name);
-
-            if (m != null)
-                break;
-            else {
-                System.out.print("해당 장소의 이름 또는 코드를 가진 곳이 없습니다. 다시 입력해 주세요 : ");
-            }
-        }
-
-        Sheet sheet = null;
-        if (m.IsNotSheet() == false) {
-            m.print();
-            System.out.print("좌석(구역)을 입력해 주세요 : ");
-            while (true) {
-                String sheetname = scanner.next();
-
-                sheet = m.getSheet(sheetname);
-
-                if (sheet != null)
-                    break;
-                else {
-                    System.out.print("해당되는 좌석(구역)이 없습니다. 다시 입력해 주세요 : ");
-                }
-            }
-        }
-        while (true) {
-            System.out.print("예약자의 학번을 입력해주세요. : ");
-            String code = scanner.next();
-            System.out.print("예약자의 이름을 입력해주세요. : ");
-            String name = scanner.next();
-
-            user = findUser(code, name);
-            if (user != null) {
-                break;
-            }
-        }
-        while (true) {
-            System.out.print("예약 날짜를 입력해 주세요.(예시 2023-10-10) : ");
-            date = scanner.next();
-            if (!checkValid(date)) {
-                System.out.println("예약할 수 없는 날짜입니다. 다른 날짜를 선택해주세요.");
-                continue;
-            }
-            System.out.print("예약 시간을 입력해 주세요.(예시 10-12) : ");
-            time = scanner.next();
-            String[] time_split = time.split("-");
-            int starttime = Integer.parseInt(time_split[0]);
-            int endtime = Integer.parseInt(time_split[1]);
-            if (starttime > 24 || endtime > 24) {
-                System.out.println("유효하지 않은 시간대입니다. 다시 입력해주세요.");
-                continue;
-            }
-            if (user.check(date, starttime, endtime)) {
-                System.out.println("동일 시간에 다른 곳을 예약 했으므로 예약할 수 없습니다!");
-                continue;
-            }
-            if (m.IsBooking(sheet, user, date, starttime, endtime)) {
-                System.out.println("예약이 성공적으로 이루어졌습니다!\n");
-                user.bookingList.add(new BookingInfo(user, date, starttime, endtime));
-                break;
-            } else {
-                System.out.println("해당 시간에 이미 예약이 있습니다. 다른 날짜를 선택해 주세요.\n");
-                continue;
-            }
-        }
-    }
-
-    void Check() {
-        System.out.print("조회할 장소의 이름 또는 코드를 입력해 주세요.(전체를 조회하려면 \"ALL\"을 입력하세요) : ");
-        String name = scanner.next();
-        if (name.equals("ALL")) {
-            for (Manageable m : mList)
-                m.bookingPrint();
-        } else {
-            Manageable m = find(name);
-
-            if (m.IsNotSheet() == false) {
-                System.out.print("조회할 좌석번호를 입력해 주세요.(전체를 조회하려면 \"ALL\"을 입력하세요) : ");
-                String sheetname = scanner.next();
-                if (sheetname.equals("ALL"))
-                    m.bookingPrint();
-                else
-                    m.getSheet(sheetname).print();
-            } else {
-                m.bookingPrint();
-            }
-        }
-
-
-    }
-
+    //날짜가 유효한지 검사하는 메소드 (익일로부터 7일)
     public boolean checkValid(String date) {
         return weekDates.contains(date);
     }
@@ -241,42 +166,26 @@ public class Manager {
 
     }
 
-    User findUser(String code, String name) {
+    User findUser(String code) {
         for (User u : userList) {
-            if (u.matches(code, name))
+            if (u.matches(code))
                 return u;
-            else if (u.matches(code)) {
-                System.out.println("동일한 학번의 다른 유저가 이미 존재합니다!");
-                return null;
-            }
         }
-        User u = new User(code, name);
-        userList.add(u);
-        return u;
+        return null;
+    }
+
+    public boolean isRooms(Manageable m) {
+        if (m instanceof AgoraRoom || m instanceof KMaruRoom || m instanceof TeamProjectRoom)
+            return true;
+        return false;
     }
 
     public void run() {
-        int num = 0;
         getWeekDateAndDay();
         readRData();
         readFData();
-        while (true) {
-            System.out.println("(1)예약 (2)검색 (3)조회 (기타)종료 : ");
-            num = scanner.nextInt();
-            switch (num) {
-                case 1:
-                    Booking();
-                    break;
-                case 2:
-                    Search();
-                    break;
-                case 3:
-                    Check();
-                    break;
-                default:
-                    return;
-            }
-        }
+        readUData();
+        readRSData();
+        //function 패키지에 이벤트 처리 메소드 있습니다. (static 선언 해놓음)
     }
 }
-
