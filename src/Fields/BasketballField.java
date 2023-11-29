@@ -40,13 +40,16 @@ public class BasketballField implements Manageable {
     }
 
     @Override
-    public void bookingMatchesUser(String kwd) {
+    public String bookingMatchesUser(String kwd) {
+        StringBuffer sb = new StringBuffer();
+        String s = null;
         for (var sheet : sheets) {
             if (sheet.matches(kwd)) {
-                // System.out.format("\t%s(%s)  ", name, code);
-                sheet.printUser(name, code);
+                sb.append(sheet.printUser(name, code));
             }
         }
+        s = sb.toString();
+        return s;
     }
 
     @Override
@@ -55,10 +58,14 @@ public class BasketballField implements Manageable {
     }
 
     @Override
-    public void bookingPrint() {
-        System.out.format("%s(%s) 구역별 예약 현황\n", name, code);
+    public String bookingPrint() {
+        StringBuffer sb = new StringBuffer();
+        String s = null;
+        sb.append(String.format("%s(%s) 구역별 예약 현황\n", name, code));
         for (var sheet : sheets)
-            sheet.print();
+            sb.append(sheet.print());
+        s = sb.toString();
+        return s;
     }
 
     @Override
