@@ -37,14 +37,18 @@ public class Sheet {
         }
     }
 
-    public void printUser(String name, String code) {
-        if (!bookingInfo.isEmpty()) {
-            for (var booking : bookingInfo) {
-                System.out.format("\t%s(%s)  ", name, code);
-                System.out.printf("[%s] ", this.name);
-                booking.print();
+    public String printUser(String name,String code){
+        StringBuffer sb = new StringBuffer();
+        String s = null;
+        if(!bookingInfo.isEmpty()){
+            for(var booking : bookingInfo) {
+                sb.append(String.format("\t%s(%s)  ", name, code));
+                sb.append(String.format("[%s] ",this.name));
+                sb.append(booking.print());
             }
         }
+        s = sb.toString();
+        return s;
     }
 
     public boolean matches(String kwd) {

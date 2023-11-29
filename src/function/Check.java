@@ -1,7 +1,7 @@
 package function;
 
 import mgr.Manageable;
-import mgr.Manager;
+import mgr.ProgramMng;
 import mgr.Sheet;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ public class Check {
     public static String fieldInputText(JTextField fieldName) { //텍스트필드의 텍스트를 가져오는 메소드
         return fieldName.getText();
     }
-    public static String checkList(String loginId, Manager mgr) { //로그인 정보에 따라 예약 정보를 보여주는 메소드
+    public static String checkList(String loginId, ProgramMng mgr) { //로그인 정보에 따라 예약 정보를 보여주는 메소드
         StringBuffer sb = new StringBuffer();
         String s = null;
         for (Manageable m : mgr.mList)
@@ -18,7 +18,7 @@ public class Check {
         s = sb.toString();
         return s;
     }
-    public static String search(String field1, String field2, Manager mgr) { //검색 기능
+    public static String search(String field1, String field2, ProgramMng mgr) { //검색 기능
         if(!(field1.contentEquals("ALL") || field1.contains("팀프A")
                 || field1.contains("팀프B") || field1.contains("팀프C")
                 || field1.contains("팀프D") || field1.contains("팀프E")
