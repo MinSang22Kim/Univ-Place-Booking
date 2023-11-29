@@ -24,32 +24,32 @@ public class LogInPanel extends JPanel {
 
         idLabel.setBounds(122, 270, 80, 43);
         idLabel.setForeground(Color.WHITE);
-        idLabel.setFont(UIMng.getInstance().logInFont);
+        idLabel.setFont(UIMng.getIns().logInFont);
         add(idLabel);
 
         idField.setBounds(122, 311, 296, 43);
-        idField.setFont(UIMng.getInstance().logInFont);
+        idField.setFont(UIMng.getIns().logInFont);
         idField.setColumns(10);
         idField.setBorder(null);
         add(idField);
 
         passLabel.setBounds(122, 350, 120, 43);
         passLabel.setForeground(Color.WHITE);
-        passLabel.setFont(UIMng.getInstance().logInFont);
+        passLabel.setFont(UIMng.getIns().logInFont);
         add(passLabel);
 
         passField.setBounds(122, 391, 296, 43);
-        passField.setFont(UIMng.getInstance().logInFont);
+        passField.setFont(UIMng.getIns().logInFont);
         passField.setBorder(null);
         add(passField);
 
         loginButton.setBounds(122, 461, 296, 43);
-        loginButton.setFont(UIMng.getInstance().logInFont);
+        loginButton.setFont(UIMng.getIns().logInFont);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(IsLogIn())
-                    UIMng.getInstance().showPanel(DEFINE.MENU_PANEL);
+                    UIMng.getIns().showPanel(DEFINE.MENU_PANEL);
                 else {
                     JOptionPane.showMessageDialog(null, "아이디 또는 패스워드를 다시 확인하세요.");
                 }
@@ -60,7 +60,7 @@ public class LogInPanel extends JPanel {
 
     boolean IsLogIn()
     {
-        boolean result = ProgramMng.getInstance().login(idField.getText(), passField.getText());
+        boolean result = ProgramMng.getIns().login(idField.getText(), passField.getText());
         System.out.println(result);
         return result;
     }

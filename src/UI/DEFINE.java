@@ -13,4 +13,5 @@ public final class DEFINE {
     public static final String PLACE_SELECT_PANEL = "placeSelectPanel";
     public static final String SPORT_SELECT_PANEL = "sportSelectPanel";
     public static final String STUDY_SELECT_PANEL = "studySelectPanel";
+    public static final String BOOKING_FINDER_PANEL = "bookingFinderPanel";
 }

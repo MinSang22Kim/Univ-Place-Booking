@@ -19,7 +19,7 @@ public class GotoMenuBtn extends JButton {
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().showPanel(DEFINE.MENU_PANEL);
+                UIMng.getIns().showPanel(DEFINE.MENU_PANEL);
             }
         });
     }

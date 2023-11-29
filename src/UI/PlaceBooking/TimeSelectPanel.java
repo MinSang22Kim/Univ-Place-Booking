@@ -25,8 +25,8 @@ public class TimeSelectPanel extends JPanel {
         startTimeLabel = new JLabel(DEFINE.STARTTIME_LEBEL);
         endTimeLabel = new JLabel(DEFINE.ENDTTIME_LABEL);
 
-        startTimeLabel.setFont(UIMng.getInstance().subFont);
-        endTimeLabel.setFont(UIMng.getInstance().subFont);
+        startTimeLabel.setFont(UIMng.getIns().subFont);
+        endTimeLabel.setFont(UIMng.getIns().subFont);
 
 //        startTimeLabel.setBounds(startPos.x, startPos.y - area.y, area.x, area.y);
 //        endTimeLabel.setBounds(endPos.x, endPos.y - area.y, area.x, area.y);
@@ -39,11 +39,11 @@ public class TimeSelectPanel extends JPanel {
 
         startTimeComboBox.setLayout(null);
         startTimeComboBox.setSize(area.x, area.y);
-        startTimeComboBox.setFont(UIMng.getInstance().subFont);
+        startTimeComboBox.setFont(UIMng.getIns().subFont);
 
         endTimeComboBox.setLayout(null);
         endTimeComboBox.setSize(area.x, area.y);
-        endTimeComboBox.setFont(UIMng.getInstance().subFont);
+        endTimeComboBox.setFont(UIMng.getIns().subFont);
 
         for(int i=0;i<24;i++)
         {
@@ -56,8 +56,8 @@ public class TimeSelectPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox)e.getSource();
             String selectedItem = (String)cb.getSelectedItem();
-            UIMng.getInstance().startTime = Integer.valueOf(selectedItem.replace('시', ' ').trim());
-            System.out.println(UIMng.getInstance().startTime);
+            UIMng.getIns().startTime = Integer.valueOf(selectedItem.replace('시', ' ').trim());
+            System.out.println(UIMng.getIns().startTime);
         }
 
     });
@@ -67,8 +67,8 @@ public class TimeSelectPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
                 String selectedItem = (String)cb.getSelectedItem();
-                UIMng.getInstance().endTime = Integer.valueOf(selectedItem.replace('시', ' ').trim());
-                System.out.println(UIMng.getInstance().endTime);
+                UIMng.getIns().endTime = Integer.valueOf(selectedItem.replace('시', ' ').trim());
+                System.out.println(UIMng.getIns().endTime);
             }
 
         });

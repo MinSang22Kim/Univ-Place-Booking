@@ -22,31 +22,31 @@ public class StudySelectPanel extends JPanel {
         buttonC.setName("마루");
 
         buttonA.setBounds(119, 463, 150, 50);
-        buttonA.setFont(UIMng.getInstance().menuFont);
+        buttonA.setFont(UIMng.getIns().menuFont);
         buttonA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(buttonA.getName());
+                UIMng.getIns().SelectPlaceToBooking(buttonA.getName());
             }
         });
         add(buttonA);
 
         buttonB.setBounds(418, 463, 150, 50);
-        buttonB.setFont(UIMng.getInstance().menuFont);
+        buttonB.setFont(UIMng.getIns().menuFont);
         buttonB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(buttonB.getName());
+                UIMng.getIns().SelectPlaceToBooking(buttonB.getName());
             }
         });
         add(buttonB);
 
         buttonC.setBounds(725, 463, 150, 50);
-        buttonC.setFont(UIMng.getInstance().menuFont);
+        buttonC.setFont(UIMng.getIns().menuFont);
         buttonC.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(buttonC.getName());
+                UIMng.getIns().SelectPlaceToBooking(buttonC.getName());
             }
         });
         add(buttonC);

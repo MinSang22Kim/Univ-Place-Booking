@@ -13,7 +13,7 @@ public class PlaceBookingPanel extends JPanel {
     public PlaceBookingPanel()
     {
         setLayout(null);
-        setSize(UIMng.getInstance().SCREEN_SIZE.x,UIMng.getInstance().SCREEN_SIZE.y);
+        setSize(UIMng.getIns().SCREEN_SIZE.x,UIMng.getIns().SCREEN_SIZE.y);
 
         sheetSelectPanel = new SheetSelectPanel();
         timeSelectPanel = new TimeSelectPanel();
@@ -26,6 +26,6 @@ public class PlaceBookingPanel extends JPanel {
         add(timeSelectPanel);
         add(bookingBtn);
         add(gotoMenuBtn);
-        add(UIMng.getInstance().kguIcon);
+        add(UIMng.getIns().kguIcon);
     }
 }

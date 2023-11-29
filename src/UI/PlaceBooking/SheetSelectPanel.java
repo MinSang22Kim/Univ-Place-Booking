@@ -46,33 +46,24 @@ public class SheetSelectPanel extends JPanel {
         setLocation(50,140);
     }
 
-    //
-    public void UpdateSheet(String prefix)
-    {
-        int total = layout.getColumns() * layout.getRows();
-        for(int i=0;i<total;i++)
-        {
-            AddSheet(prefix+String.valueOf(i+1), false);
-        }
-    }
-
-    public void AddSheet(String name, boolean IsNull)
+    public void AddSheet(String sheet, String placename, boolean IsNull)
     {
         if(IsNull)
         {
             JLabel label = new JLabel();
             add(label);
         }else {
-            JButton btn = new JButton(name);
+            JButton btn = new JButton(sheet);
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String command = e.getActionCommand();
-                    selectSheet(command, e);
+                    selectSheet(command, btn.getName(), e);
                 }
             });
 
-            btn.setFont(UIMng.getInstance().subFont);
+            btn.setName(placename);
+            btn.setFont(UIMng.getIns().subFont);
             btn.setBackground(Color.gray);
             btn.setOpaque(true);
             btn.setBorderPainted(false);
@@ -81,9 +72,10 @@ public class SheetSelectPanel extends JPanel {
         }
     }
 
-    void selectSheet(String code, ActionEvent cmd)
+    void selectSheet(String sheet, String placename, ActionEvent cmd)
     {
-        selectSheetToColorChange(code);
-        UIMng.getInstance().selectSheetName = code;
+        selectSheetToColorChange(sheet);
+        UIMng.getIns().selectPlaceName = placename;
+        UIMng.getIns().selectSheetName = sheet;
     }
 }

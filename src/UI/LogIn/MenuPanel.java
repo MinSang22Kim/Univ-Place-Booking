@@ -20,18 +20,18 @@ public class MenuPanel extends JPanel {
 
 
         reservationButton.setBounds(250, 520, 150, 50);
-        reservationButton.setFont(UIMng.getInstance().menuFont);
+        reservationButton.setFont(UIMng.getIns().menuFont);
         reservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().showPanel(DEFINE.PLACE_SELECT_PANEL);
+                UIMng.getIns().showPanel(DEFINE.PLACE_SELECT_PANEL);
             }
         });
         add(reservationButton);
 
 
         searchButton.setBounds(643, 520, 150, 50);
-        searchButton.setFont(UIMng.getInstance().menuFont);
+        searchButton.setFont(UIMng.getIns().menuFont);
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

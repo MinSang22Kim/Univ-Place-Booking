@@ -3,9 +3,7 @@ package mgr;
 import Booking.User;
 import Fields.*;
 import Rooms.*;
-import UI.UIMng;
 
-import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -29,7 +27,7 @@ public class ProgramMng {
     private ProgramMng() {
     }
 
-    public static ProgramMng getInstance() {
+    public static ProgramMng getIns() {
         return instance;
     }
 
@@ -192,6 +190,6 @@ public class ProgramMng {
 
     public static void Main(String[] args)
     {
-        ProgramMng.getInstance().run();
+        ProgramMng.getIns().run();
     }
 }

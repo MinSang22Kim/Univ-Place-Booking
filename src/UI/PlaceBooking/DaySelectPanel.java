@@ -21,11 +21,11 @@ public class DaySelectPanel extends JPanel {
         setLayout(gridLayout);
         setSize(900,40);
         setLocation(50,90);
-        UIMng.getInstance().selectDate = ProgramMng.getInstance().weekDates.get(0);
+        UIMng.getIns().selectDate = ProgramMng.getIns().weekDates.get(0);
         for (int i = 0; i < 7; i++)
         {
             //날짜 선택 버튼 내용 텍스트 넣는 곳
-            JRadioButton btn = new JRadioButton(ProgramMng.getInstance().weekDates.get(i));
+            JRadioButton btn = new JRadioButton(ProgramMng.getIns().weekDates.get(i));
             btn.addItemListener(new ItemListener() {
                 @Override
                 public void itemStateChanged(ItemEvent e) {
@@ -41,10 +41,10 @@ public class DaySelectPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String command = e.getActionCommand();
-                    UIMng.getInstance().selectDate = command;
+                    UIMng.getIns().selectDate = command;
                 }
             });
-            btn.setFont(UIMng.getInstance().smallfont);
+            btn.setFont(UIMng.getIns().smallfont);
             btn.setBackground(Color.gray);
             btn.setOpaque(true);
             add(btn);

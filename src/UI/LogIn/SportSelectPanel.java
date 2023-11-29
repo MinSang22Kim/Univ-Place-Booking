@@ -23,61 +23,61 @@ public class SportSelectPanel extends JPanel {
     {
         setLayout(null);
         button1.setBounds(121, 257, 130, 50);
-        button1.setFont(UIMng.getInstance().menuFont);
+        button1.setFont(UIMng.getIns().menuFont);
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(button1.getText());
+                UIMng.getIns().SelectPlaceToBooking(button1.getText());
             }
         });
         add(button1);
 
         button2.setBounds(438, 257, 130, 50);
-        button2.setFont(UIMng.getInstance().menuFont);
+        button2.setFont(UIMng.getIns().menuFont);
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(button2.getText());
+                UIMng.getIns().SelectPlaceToBooking(button2.getText());
             }
         });
         add(button2);
 
         button3.setBounds(751, 257, 130, 50);
-        button3.setFont(UIMng.getInstance().menuFont);
+        button3.setFont(UIMng.getIns().menuFont);
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(button3.getText());
+                UIMng.getIns().SelectPlaceToBooking(button3.getText());
             }
         });
         add(button3);
 
         button4.setBounds(121, 560, 130, 50);
-        button4.setFont(UIMng.getInstance().menuFont);
+        button4.setFont(UIMng.getIns().menuFont);
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(button4.getText());
+                UIMng.getIns().SelectPlaceToBooking(button4.getText());
             }
         });
         add(button4);
 
         button5.setBounds(438, 560, 130, 50);
-        button5.setFont(UIMng.getInstance().menuFont);
+        button5.setFont(UIMng.getIns().menuFont);
         button5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(button5.getText());
+                UIMng.getIns().SelectPlaceToBooking(button5.getText());
             }
         });
         add(button5);
 
         button6.setBounds(751, 560, 130, 50);
-        button6.setFont(UIMng.getInstance().menuFont);
+        button6.setFont(UIMng.getIns().menuFont);
         button6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getInstance().SelectPlaceToBooking(button6.getText());
+                UIMng.getIns().SelectPlaceToBooking(button6.getText());
             }
         });
         add(button6);
