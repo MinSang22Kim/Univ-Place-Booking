@@ -1,20 +1,18 @@
 package UI.LogIn;
 
 import UI.DEFINE;
-import UI.Framework.PanelBase;
 import UI.UIMng;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuPanel extends PanelBase {
+public class MenuPanel extends JPanel {
     JLabel welcomeLabel = new JLabel(new ImageIcon("./image/Welcome.jpg"));
     JButton reservationButton = new JButton("예약하기");
     JButton searchButton = new JButton("조회하기");
     public MenuPanel()
     {
-        super();
         setLayout(null);
 
         welcomeLabel.setBounds(150, 100, 700, 200);

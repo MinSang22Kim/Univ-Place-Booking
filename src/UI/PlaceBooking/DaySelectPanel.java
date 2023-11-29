@@ -1,9 +1,12 @@
 package UI.PlaceBooking;
 
 import UI.UIMng;
+import mgr.ProgramMng;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -13,12 +16,16 @@ public class DaySelectPanel extends JPanel {
     ButtonGroup weekGroup = new ButtonGroup();
     public DaySelectPanel()
     {
-        setLayout(new GridLayout(1,7));
-        setSize(700,40);
-        setLocation(150,70);
+        GridLayout gridLayout = new GridLayout(1,7);
+        gridLayout.setHgap(5);
+        setLayout(gridLayout);
+        setSize(900,40);
+        setLocation(50,90);
+        UIMng.getInstance().selectDate = ProgramMng.getInstance().weekDates.get(0);
         for (int i = 0; i < 7; i++)
         {
-            JRadioButton btn = new JRadioButton(String.valueOf(i+1));
+            //날짜 선택 버튼 내용 텍스트 넣는 곳
+            JRadioButton btn = new JRadioButton(ProgramMng.getInstance().weekDates.get(i));
             btn.addItemListener(new ItemListener() {
                 @Override
                 public void itemStateChanged(ItemEvent e) {
@@ -29,7 +36,15 @@ public class DaySelectPanel extends JPanel {
                 }
 
             });
-            btn.setFont(UIMng.getInstance().subFont);
+
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String command = e.getActionCommand();
+                    UIMng.getInstance().selectDate = command;
+                }
+            });
+            btn.setFont(UIMng.getInstance().smallfont);
             btn.setBackground(Color.gray);
             btn.setOpaque(true);
             add(btn);

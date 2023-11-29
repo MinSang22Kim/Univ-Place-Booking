@@ -1,20 +1,18 @@
 package UI.LogIn;
 
 import UI.DEFINE;
-import UI.Framework.PanelBase;
 import UI.UIMng;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PlaceSelectPanel extends PanelBase {
+public class PlaceSelectPanel extends JPanel {
     JButton studyRoomButton = new JButton("스터디룸 예약");
     JLabel studyRoomImageLabel = new JLabel(new ImageIcon("./image/StudyRoom.jpg"));
     JButton sportsButton = new JButton("체육시설 예약");
     public PlaceSelectPanel()
     {
-        super();
         setLayout(null);
         studyRoomButton.setBounds(177, 524, 200, 50);
         studyRoomButton.setFont(UIMng.getInstance().menuFont);

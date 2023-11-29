@@ -1,19 +1,17 @@
 package UI.PlaceBooking;
 
-import UI.Framework.PanelBase;
-import UI.LogIn.PlaceSelectPanel;
 import UI.UIMng;
 
 import javax.swing.*;
 
-public class PlaceBookingPanel extends PanelBase {
-    SheetSelectPanel sheetSelectPanel;
+public class PlaceBookingPanel extends JPanel {
+    public SheetSelectPanel sheetSelectPanel;
     DaySelectPanel daySelectPanel;
     TimeSelectPanel timeSelectPanel;
     BookingBtn bookingBtn;
+    GotoMenuBtn gotoMenuBtn;
     public PlaceBookingPanel()
     {
-        super();
         setLayout(null);
         setSize(UIMng.getInstance().SCREEN_SIZE.x,UIMng.getInstance().SCREEN_SIZE.y);
 
@@ -21,10 +19,13 @@ public class PlaceBookingPanel extends PanelBase {
         timeSelectPanel = new TimeSelectPanel();
         daySelectPanel = new DaySelectPanel();
         bookingBtn = new BookingBtn();
+        gotoMenuBtn = new GotoMenuBtn();
 
         add(daySelectPanel);
         add(sheetSelectPanel);
         add(timeSelectPanel);
         add(bookingBtn);
+        add(gotoMenuBtn);
+        add(UIMng.getInstance().kguIcon);
     }
 }

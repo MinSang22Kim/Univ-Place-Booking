@@ -5,6 +5,7 @@ import Fields.*;
 import Rooms.*;
 import UI.UIMng;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 
 public class ProgramMng {
 
-    ArrayList<String> weekDates = new ArrayList<>();
+    public ArrayList<String> weekDates = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     Scanner scanner = new Scanner(System.in);
     public ArrayList<Manageable> mList = new ArrayList<>();
@@ -185,6 +186,7 @@ public class ProgramMng {
         readFData();
         readUData();
         readRSData();
+
         //function 패키지에 이벤트 처리 메소드 있습니다. (static 선언 해놓음)
     }
 

@@ -20,10 +20,17 @@ public class UIMng  implements Runnable{
     SportSelectPanel sportSelectPanel;
     StudySelectPanel studySelectPanel;
 
+    public String selectPlaceName;
+    public String selectSheetName;
+    public String selectDate;
+    public int startTime = 0;
+    public int endTime = 0;
+
     public KGULogo kguIcon;
 
     public final Font mainFont = new Font(DEFINE.NATURE_GOTHIC, Font.BOLD, 28);
     public final Font subFont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 22);
+    public final Font smallfont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 15);
     public final Font logInFont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 26);
     public final Font menuFont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 18);
 
@@ -45,10 +52,9 @@ public class UIMng  implements Runnable{
     {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            UIManager.setLookAndFeel("javax.swing.plaf.metal");
         }catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         mainFrame = new JFrame("학교 시설 예약 프로그램");
@@ -61,13 +67,12 @@ public class UIMng  implements Runnable{
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setResizable(false);
 
+        mainFrame.getContentPane().add(cardPanel, BorderLayout.CENTER);
         kguIcon = new KGULogo("image/kgu_logo.png", 10, 10);
 
-        mainFrame.getContentPane().add(cardPanel, BorderLayout.CENTER);
-
         InitPlaceBooking();
-
-        cardLayout.show(cardPanel, DEFINE.SHEET_SELECT_PANEL);
+//        SheetSet("마루");
+        cardLayout.show(cardPanel, DEFINE.LOGIN_PANEL);
         mainFrame.setVisible(true);
     }
 
@@ -96,7 +101,91 @@ public class UIMng  implements Runnable{
     public void SelectPlaceToBooking(String name)
     {
         showPanel(DEFINE.SHEET_SELECT_PANEL);
+        SheetSet(name);
         kguIcon.setText("예약-"+name);
+        selectPlaceName = name;
+        System.out.println(name);
+    }
+    void SheetSet(String name)
+    {
+        placeBookingPanel.sheetSelectPanel.AllRemoveSheet();
+        switch (name)
+        {
+            case "풋살장":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(1,3);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A2", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("B1", false);
+                break;
+            case "농구장":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(3,2);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A2", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("B1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("B2", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("C1", false);
+                break;
+            case "축구장":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(2,2);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A2", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("B1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("B2", false);
+                break;
+            case "족구장":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(2,2);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A2", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("B1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("B2", false);
+                break;
+            case "테니스장":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(2,2);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A2", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A3", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A4", false);
+                break;
+            case "탁구장":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(2,3);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A1", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A2", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A3", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A4", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A5", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("A6", false);
+                break;
+            case "팀프로젝트실":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(4,4);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프A실", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프B실", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프C실", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프D실", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프E실", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프F실", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프G실", false);
+                placeBookingPanel.sheetSelectPanel.AddSheet("팀프H실", false);
+                break;
+            case "아고라":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(8,10);
+                for(int i=0;i<8;i++)
+                    for(int j=0;j<10;j++)
+                        placeBookingPanel.sheetSelectPanel.AddSheet(String.format("%c%d",'A'+i,j+1), false);
+                break;
+            case "마루":
+                placeBookingPanel.sheetSelectPanel.UpdateGrid(8,10);
+                for(int i=0;i<8;i++)
+                {
+                    for(int j=0;j<10;j++)
+                    {
+                        if(i<5 && j>=5)
+                            placeBookingPanel.sheetSelectPanel.AddSheet(String.format("%c%d",'A'+i,j+1), true);
+                        else
+                            placeBookingPanel.sheetSelectPanel.AddSheet(String.format("%c%d",'A'+i,j+1), false);
+                    }
+                }
+                break;
+        }
     }
 
     public Point getFontSize(FontMetrics font, String text)

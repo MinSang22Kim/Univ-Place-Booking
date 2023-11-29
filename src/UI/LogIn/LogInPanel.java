@@ -1,7 +1,6 @@
 package UI.LogIn;
 
 import UI.DEFINE;
-import UI.Framework.PanelBase;
 import UI.UIMng;
 import mgr.ProgramMng;
 
@@ -10,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LogInPanel extends PanelBase {
+public class LogInPanel extends JPanel {
     private Image img;
     JLabel idLabel = new JLabel("학번");
     JTextField idField = new JTextField();
@@ -18,7 +17,6 @@ public class LogInPanel extends PanelBase {
     JPasswordField passField = new JPasswordField();
     JButton loginButton = new JButton("Login");
     public LogInPanel() {
-        super();
         img = new ImageIcon("./image/KGU2.jpg").getImage();
         this.img = img;
         setPreferredSize(new Dimension(img.getWidth(null), img.getHeight(null)));

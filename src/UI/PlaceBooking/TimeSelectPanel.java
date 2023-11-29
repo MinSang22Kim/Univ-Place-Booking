@@ -5,6 +5,8 @@ import UI.UIMng;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TimeSelectPanel extends JPanel {
     JLabel startTimeLabel;
@@ -18,7 +20,7 @@ public class TimeSelectPanel extends JPanel {
     public TimeSelectPanel()
     {
         setLayout(new FlowLayout(FlowLayout.CENTER));
-        setBounds(820,200, 100,160);
+        setBounds(850,200, 80,160);
 
         startTimeLabel = new JLabel(DEFINE.STARTTIME_LEBEL);
         endTimeLabel = new JLabel(DEFINE.ENDTTIME_LABEL);
@@ -35,8 +37,6 @@ public class TimeSelectPanel extends JPanel {
 
         startTimeComboBox.setOpaque(true);
 
-
-
         startTimeComboBox.setLayout(null);
         startTimeComboBox.setSize(area.x, area.y);
         startTimeComboBox.setFont(UIMng.getInstance().subFont);
@@ -50,6 +50,28 @@ public class TimeSelectPanel extends JPanel {
             startTimeComboBox.addItem(String.valueOf(i)+"시");
             endTimeComboBox.addItem(String.valueOf(i)+"시");
         }
+
+        startTimeComboBox.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JComboBox cb = (JComboBox)e.getSource();
+            String selectedItem = (String)cb.getSelectedItem();
+            UIMng.getInstance().startTime = Integer.valueOf(selectedItem.replace('시', ' ').trim());
+            System.out.println(UIMng.getInstance().startTime);
+        }
+
+    });
+
+        endTimeComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox cb = (JComboBox)e.getSource();
+                String selectedItem = (String)cb.getSelectedItem();
+                UIMng.getInstance().endTime = Integer.valueOf(selectedItem.replace('시', ' ').trim());
+                System.out.println(UIMng.getInstance().endTime);
+            }
+
+        });
 
         startTimeComboBox.setVisible(true);
         endTimeComboBox.setVisible(true);
