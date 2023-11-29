@@ -21,12 +21,12 @@ public class BookingInfo {
         this.endHour = endHour;
     }
 
-    public void print() {
+    public String print() {
         String[] date_split = date.split("-");
         int year = Integer.parseInt(date_split[0]);
         int month = Integer.parseInt(date_split[1]);
         int day = Integer.parseInt(date_split[2]);
-        System.out.format("\t예약 시간 : %d년 %d월 %d일 %d시~%d시 (예약자 : %s(%s))\n",
+        return String.format("\t예약 시간 : %d년 %d월 %d일 %d시~%d시 (예약자 : %s(%s))\n",
                 year, month, day, startHour, endHour, user.name, user.code);
     }
 

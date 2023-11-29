@@ -22,13 +22,18 @@ public class Sheet {
         return !bookingInfo.isEmpty();
     }
 
-    public void print() {
-        if (bookingInfo.isEmpty()) {
-            System.out.format("(%s) - 예약자가 없습니다.\n", name);
-        } else {
-            System.out.format("(%s) - 예약자가 %d명 있습니다..\n", name, bookingInfo.size());
-            for (var booking : bookingInfo)
-                booking.print();
+    public String print() {
+        if(bookingInfo.isEmpty())
+        {
+            return (String.format("(%s) - 예약자가 없습니다.\n", name));
+        }else {
+            StringBuffer sb = new StringBuffer();
+            String s = null;
+            sb.append(String.format("(%s) - 예약자가 %d명 있습니다..\n", name, bookingInfo.size()));
+            for(var booking : bookingInfo)
+                sb.append(booking.print());
+            s = sb.toString();
+            return s;
         }
     }
 
