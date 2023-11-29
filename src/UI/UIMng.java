@@ -1,9 +1,9 @@
 package UI;
 
-import UI.PlaceBooking.BookingBtn;
-import UI.PlaceBooking.DaySelectPanel;
-import UI.PlaceBooking.SheetSelectPanel;
-import UI.PlaceBooking.TimeSelectPanel;
+import UI.Framework.KGULogo;
+import UI.LogIn.*;
+import UI.PlaceBooking.*;
+import mgr.ProgramMng;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,23 +13,25 @@ public class UIMng  implements Runnable{
     JPanel cardPanel;
     CardLayout cardLayout;
 
-    JPanel placeBookingPanel;
+    PlaceBookingPanel placeBookingPanel;
+    LogInPanel logInPanel;
+    MenuPanel menuPanel;
+    PlaceSelectPanel placeSelectPanel;
+    SportSelectPanel sportSelectPanel;
+    StudySelectPanel studySelectPanel;
 
-    SheetSelectPanel sheetSelectPanel;
-    DaySelectPanel daySelectPanel;
-    TimeSelectPanel timeSelectPanel;
-    BookingBtn bookingBtn;
-
-    KGULogo kguIcon;
+    public KGULogo kguIcon;
 
     public final Font mainFont = new Font(DEFINE.NATURE_GOTHIC, Font.BOLD, 28);
     public final Font subFont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 22);
+    public final Font logInFont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 26);
+    public final Font menuFont = new Font(DEFINE.NATURE_GOTHIC, Font.PLAIN, 18);
 
     public final Point SCREEN_SIZE = new Point(1000,700);
 
     private static UIMng instance;
     private UIMng() {
-
+        ProgramMng.getInstance().run();
     }
 
     public static UIMng getInstance() {
@@ -59,33 +61,43 @@ public class UIMng  implements Runnable{
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setResizable(false);
 
-        mainFrame.add(new KGULogo("image/kgu_logo.png", 10, 10));
+        kguIcon = new KGULogo("image/kgu_logo.png", 10, 10);
+
         mainFrame.getContentPane().add(cardPanel, BorderLayout.CENTER);
 
         InitPlaceBooking();
+
         cardLayout.show(cardPanel, DEFINE.SHEET_SELECT_PANEL);
         mainFrame.setVisible(true);
     }
 
     void InitPlaceBooking()
     {
-        placeBookingPanel = new JPanel();
-        placeBookingPanel.setLayout(null);
-        placeBookingPanel.setSize(SCREEN_SIZE.x,SCREEN_SIZE.y);
+        placeBookingPanel = new PlaceBookingPanel();
+        logInPanel = new LogInPanel();
+        menuPanel = new MenuPanel();
+        placeSelectPanel = new PlaceSelectPanel();
+        sportSelectPanel = new SportSelectPanel();
+        studySelectPanel = new StudySelectPanel();
 
-        sheetSelectPanel = new SheetSelectPanel();
-        timeSelectPanel = new TimeSelectPanel();
-        daySelectPanel = new DaySelectPanel();
-        bookingBtn = new BookingBtn();
-
-        placeBookingPanel.add(daySelectPanel);
-        placeBookingPanel.add(sheetSelectPanel);
-        placeBookingPanel.add(timeSelectPanel);
-        placeBookingPanel.add(bookingBtn);
-
+        cardPanel.add(logInPanel, DEFINE.LOGIN_PANEL);
+        cardPanel.add(menuPanel, DEFINE.MENU_PANEL);
+        cardPanel.add(placeSelectPanel, DEFINE.PLACE_SELECT_PANEL);
+        cardPanel.add(sportSelectPanel, DEFINE.SPORT_SELECT_PANEL);
+        cardPanel.add(studySelectPanel, DEFINE.STUDY_SELECT_PANEL);
         cardPanel.add(placeBookingPanel, DEFINE.SHEET_SELECT_PANEL);
     }
 
+    public void showPanel(String name)
+    {
+        cardLayout.show(cardPanel, name);
+    }
+
+    public void SelectPlaceToBooking(String name)
+    {
+        showPanel(DEFINE.SHEET_SELECT_PANEL);
+        kguIcon.setText("예약-"+name);
+    }
 
     public Point getFontSize(FontMetrics font, String text)
     {

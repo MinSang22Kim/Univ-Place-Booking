@@ -1,10 +1,9 @@
 package mgr;
 
-import Booking.BookingInfo;
 import Booking.User;
 import Fields.*;
 import Rooms.*;
-import function.Booking;
+import UI.UIMng;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Manager {
+public class ProgramMng {
 
     ArrayList<String> weekDates = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -24,12 +23,12 @@ public class Manager {
 
     static ArrayList<User> userList = new ArrayList<>();
 
-    private static Manager instance = new Manager();
+    private static ProgramMng instance = new ProgramMng();
 
-    private Manager() {
+    private ProgramMng() {
     }
 
-    public static Manager getInstance() {
+    public static ProgramMng getInstance() {
         return instance;
     }
 
@@ -187,5 +186,10 @@ public class Manager {
         readUData();
         readRSData();
         //function 패키지에 이벤트 처리 메소드 있습니다. (static 선언 해놓음)
+    }
+
+    public static void Main(String[] args)
+    {
+        ProgramMng.getInstance().run();
     }
 }
