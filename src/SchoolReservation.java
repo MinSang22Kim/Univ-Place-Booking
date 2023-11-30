@@ -12,17 +12,24 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 class ImagePanel extends JPanel {
 	private Image img;
+	private String name;
 
-	public ImagePanel(Image img) {
+	public ImagePanel(Image img, String name) {
 		this.img = img;
+		this.name = name;
 		setPreferredSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 		setLayout(null);
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -49,16 +56,18 @@ public class SchoolReservation {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// 로그인 화면
-		ImagePanel loginPanel = new ImagePanel(new ImageIcon("./image/KGU2.jpg").getImage());
+		// 로그인 판넬
+		ImagePanel loginPanel = new ImagePanel(new ImageIcon("./image/KGU2.jpg").getImage(), "loginPanel");
 		loginPanel.setLayout(null);
 
+		// 학번 빈칸
 		JLabel idLabel = new JLabel("학번");
 		idLabel.setBounds(122, 270, 80, 43);
 		idLabel.setForeground(Color.WHITE);
 		idLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		loginPanel.add(idLabel);
 
+		// 학번 텍스트
 		idField = new JTextField();
 		idField.setBounds(122, 311, 296, 43);
 		idField.setFont(new Font("Tahoma", Font.PLAIN, 26));
@@ -66,40 +75,58 @@ public class SchoolReservation {
 		idField.setBorder(null);
 		loginPanel.add(idField);
 
+		// 비밀번호 빈칸
 		JLabel passLabel = new JLabel("비밀번호");
 		passLabel.setBounds(122, 350, 120, 43);
 		passLabel.setForeground(Color.WHITE);
 		passLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		loginPanel.add(passLabel);
 
+		// 비밀번호 텍스트
 		passField = new JPasswordField();
 		passField.setBounds(122, 391, 296, 43);
 		passField.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		passField.setBorder(null);
 		loginPanel.add(passField);
 
+		// 로그인 버튼 및 텍스트
 		JButton loginButton = new JButton("Login");
 		loginButton.setBounds(122, 461, 296, 43);
 		loginButton.setFont(new Font("Tahoma", Font.PLAIN, 26));
+
+		// 로그인 버튼 클릭 시 동작 메소드
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(cardPanel, "welcomePanel");
+				String enteredId = idField.getText();
+				String enteredPassword = new String(passField.getPassword());
+
+				// 존재하는 회원인지 검사 후 조건문에 따라 동작
+				if (checkLogin(enteredId, enteredPassword)) {
+					cardLayout.show(cardPanel, "welcomePanel");
+				} else {
+					showLoginErrorPopup();
+				}
 			}
 		});
 		loginPanel.add(loginButton);
 
-		// 로그인 성공 화면 판넬
-		JPanel welcomePanel = new JPanel();
+		// welcome 판넬
+		ImagePanel welcomePanel = new ImagePanel(new ImageIcon("./image/KGU2.jpg").getImage(), "welcomePanel");
+		// JPanel welcomePanel = new JPanel();
 		welcomePanel.setLayout(null);
 
+		// welcome 이미지 크기 및 위치
 		JLabel welcomeLabel = new JLabel(new ImageIcon("./image/Welcome.jpg"));
 		welcomeLabel.setBounds(150, 100, 700, 200);
 		welcomePanel.add(welcomeLabel);
 
+		// 예약하기 버튼
 		JButton reservationButton = new JButton("예약하기");
 		reservationButton.setBounds(250, 520, 150, 50);
 		reservationButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+
+		// 예약하기 버튼 클릭 시 동작 메소드
 		reservationButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -108,28 +135,35 @@ public class SchoolReservation {
 		});
 		welcomePanel.add(reservationButton);
 
+		// 검색하기 버튼
 		JButton searchButton = new JButton("검색하기");
 		searchButton.setBounds(643, 520, 150, 50);
 		searchButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+
+		// 검색 버튼 클릭 시 동작 메소드
 		searchButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("검색 버튼 클릭");
+				// 검색 판넬 정우님이 만들어주면 판넬명 확인 후 수정!!!!
+				cardLayout.show(cardPanel, "searchPanel");
 			}
 		});
+		// 여기 정우님 searchPanel 만들고 다시 수정해야 함.
 		welcomePanel.add(searchButton);
 
-		JPanel reservationPanel = new JPanel();
+		ImagePanel reservationPanel = new ImagePanel(new ImageIcon("./image/KGU2.jpg").getImage(), "reservationPanel");
+		// JPanel reservationPanel = new JPanel();
 
 		// 스터디룸 예약 버튼
 		JButton studyRoomButton = new JButton("스터디룸 예약");
 		studyRoomButton.setBounds(177, 524, 200, 50);
 		studyRoomButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+
+		// 스터디룸 예약 버튼 클릭 시 동작 메소드
 		studyRoomButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("스터디룸 예약 버튼 클릭");
-				cardLayout.show(cardPanel, "studyRoomReservationPanel"); // 스터디룸 예약 판넬로 전환
+				cardLayout.show(cardPanel, "studyRoomReservationPanel");
 			}
 		});
 		reservationPanel.setLayout(null);
@@ -145,11 +179,12 @@ public class SchoolReservation {
 		JButton sportsButton = new JButton("체육시설 예약");
 		sportsButton.setBounds(615, 524, 200, 50);
 		sportsButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+
+		// 체육시설 예약 버튼 클릭 시 동작 메소드
 		sportsButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("체육시설 예약 버튼 클릭");
-				cardLayout.show(cardPanel, "sportsFacilityReservationPanel"); // 체육시설 예약 판넬로 전환
+				cardLayout.show(cardPanel, "sportsFacilityReservationPanel");
 			}
 		});
 		reservationPanel.add(sportsButton);
@@ -160,27 +195,10 @@ public class SchoolReservation {
 		sportsFacilityImageLabel.setBounds(508, 156, 400, 300);
 		reservationPanel.add(sportsFacilityImageLabel);
 
-		// 3개의 스터디룸 예약 페이지
-		JPanel studyRoomReservationPanel = new JPanel();
-		studyRoomReservationPanel.setLayout(null);
-
-		JButton buttonA = new JButton("팀 프로젝트실");
-		buttonA.setBounds(119, 463, 150, 50);
-		buttonA.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		studyRoomReservationPanel.add(buttonA);
-
-		JButton buttonB = new JButton("K-아고라");
-		buttonB.setBounds(418, 463, 150, 50);
-		buttonB.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		studyRoomReservationPanel.add(buttonB);
-
-		JButton buttonC = new JButton("K-마루");
-		buttonC.setBounds(725, 463, 150, 50);
-		buttonC.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		studyRoomReservationPanel.add(buttonC);
-
 		// 체육시설 예약 페이지
-		JPanel sportsFacilityReservationPanel = new JPanel();
+		ImagePanel sportsFacilityReservationPanel = new ImagePanel(new ImageIcon("./image/KGU2.jpg").getImage(),
+				"sportsFacilityReservationPanel");
+		// JPanel sportsFacilityReservationPanel = new JPanel();
 		sportsFacilityReservationPanel.setLayout(null);
 
 		// 체육시설 예약 (버튼 6개)
@@ -218,19 +236,39 @@ public class SchoolReservation {
 		button6.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		sportsFacilityReservationPanel.add(button6);
 
-		// 카드 레이아웃 설정
+		// 카드 레이아웃 설정 및 카드 패널 추가
 		cardLayout = new CardLayout();
 		cardPanel = new JPanel(cardLayout);
 		cardPanel.add(loginPanel, "loginPanel");
 		cardPanel.add(welcomePanel, "welcomePanel");
 		cardPanel.add(reservationPanel, "reservationPanel");
+
+		// 3개의 스터디룸 예약 페이지
+		ImagePanel studyRoomReservationPanel = new ImagePanel(new ImageIcon("./image/KGU2.jpg").getImage(),
+				"studyRoomReservationPanel");
+		// JPanel studyRoomReservationPanel = new JPanel();
+		studyRoomReservationPanel.setLayout(null);
+
+		JButton buttonA = new JButton("팀 프로젝트실");
+		buttonA.setBounds(119, 463, 150, 50);
+		buttonA.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		studyRoomReservationPanel.add(buttonA);
+
+		JButton buttonB = new JButton("K-아고라");
+		buttonB.setBounds(418, 463, 150, 50);
+		buttonB.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		studyRoomReservationPanel.add(buttonB);
+
+		JButton buttonC = new JButton("K-마루");
+		buttonC.setBounds(725, 463, 150, 50);
+		buttonC.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		studyRoomReservationPanel.add(buttonC);
 		cardPanel.add(studyRoomReservationPanel, "studyRoomReservationPanel");
 
-		// 절대 경로로 이미지 파일 편집이 쉬워서 지우지 않고 주석처리
 		JLabel ALabel = new JLabel("");
 		// ALabel.setIcon(new
 		// ImageIcon("/Users/kms/eclipse-workspace/OOP_TeamProject/image/A.png"));
-		ALabel.setIcon(new ImageIcon(".image/A.png"));
+		ALabel.setIcon(new ImageIcon("./image/A.png"));
 		ALabel.setBounds(55, 190, 271, 188);
 		studyRoomReservationPanel.add(ALabel);
 
@@ -278,11 +316,12 @@ public class SchoolReservation {
 		sportsFacilityReservationPanel.add(Label_4);
 
 		JLabel Label_5 = new JLabel("");
-		ImageIcon icon = new ImageIcon("/Users/kms/eclipse-workspace/OOP_TeamProject/image/5.png");
-		Label_5.setBounds(412, 360, 300, 300);
+		// ImageIcon icon = new
+		// ImageIcon("/Users/kms/eclipse-workspace/OOP_TeamProject/image/5.png");
+		Label_5.setBounds(412, 304, 300, 300);
 		// Label_5.setIcon(new
 		// ImageIcon("/Users/kms/eclipse-workspace/OOP_TeamProject/image/5.png"));
-		Label_5.setIcon(icon);
+		Label_5.setIcon(new ImageIcon("./image/5.png"));
 		sportsFacilityReservationPanel.add(Label_5);
 
 		JLabel Label_6 = new JLabel("");
@@ -296,6 +335,27 @@ public class SchoolReservation {
 
 		frame.setVisible(true);
 	}
+
+	private boolean checkLogin(String enteredId, String enteredPassword) {
+		// 이 부분 받는 데이터파일 회의할 때 기능 담당 부분이랑 확인 필요!!!, 임시로 이렇게 둔 거임!!!!!!!!
+		// + 규선이 로그인 메소드 가져오기?
+		return enteredId.equals("202014889") && enteredPassword.equals("ms0217");
+	}
+
+	private void showLoginErrorPopup() {
+		JOptionPane.showMessageDialog(frame, "로그인에 실패했습니다. 학번과 비밀번호를 확인해주세요!", "Login Error",
+				JOptionPane.ERROR_MESSAGE);
+	}
+
+	// 현재 보이는 패널의 이름을 반환하는 메소드
+//	private String getCurrentPanelName() {
+//		for (java.awt.Component comp : cardPanel.getComponents()) {
+//			if (comp.isVisible() && comp instanceof ImagePanel) {
+//				return ((ImagePanel) comp).getName();
+//			}
+//		}
+//		return null;
+//	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
