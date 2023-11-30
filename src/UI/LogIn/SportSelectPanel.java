@@ -99,7 +99,7 @@ public class SportSelectPanel extends JPanel {
         Label_4.setIcon(new ImageIcon("./image/4.png"));
         add(Label_4);
 
-        Label_5.setBounds(412, 360, 300, 300);
+        Label_5.setBounds(412, 304, 300, 300);
         Label_5.setIcon(new ImageIcon("./image/5.png"));
         add(Label_5);
 
