@@ -51,7 +51,7 @@ public class StudySelectPanel extends JPanel {
         });
         add(buttonC);
 
-        ALabel.setIcon(new ImageIcon(".image/A.png"));
+        ALabel.setIcon(new ImageIcon("./image/A.png"));
         ALabel.setBounds(55, 190, 271, 188);
         add(ALabel);
 
