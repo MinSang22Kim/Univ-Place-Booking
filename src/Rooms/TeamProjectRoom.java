@@ -43,14 +43,17 @@ public class TeamProjectRoom implements Manageable {
     }
 
     @Override
-    public void bookingPrint() {
-
+    public String bookingPrint() {
         if (bookingInfos.isEmpty()) {
-            System.out.format("%s(%s)에 예약자가 없습니다.\n", name, code);
+            return String.format("%s(%s)에 예약자가 없습니다.\n", name, code);
         } else {
-            System.out.format("%s(%s) 예약자 현황\n", name, code);
+            StringBuffer sb = new StringBuffer();
+            String s = null;
+            sb.append(String.format("%s(%s) 예약자 현황\n", name, code));
             for (var booking : bookingInfos)
-                booking.print();
+                sb.append(booking.print());
+            s = sb.toString();
+            return s;
         }
     }
 
@@ -68,13 +71,17 @@ public class TeamProjectRoom implements Manageable {
     }
 
     @Override
-    public void bookingMatchesUser(String kwd) {
+    public String bookingMatchesUser(String kwd) {
+        StringBuffer sb = new StringBuffer();
+        String s = null;
         for (BookingInfo b : bookingInfos) {
             if (b.matches(kwd)) {
-                System.out.format("\t%s(%s)  ", name, code);
-                b.print();
+                sb.append(String.format("\t%s(%s)  ", name, code));
+                sb.append(b.print());
             }
         }
+        s = sb.toString();
+        return s;
     }
 
     @Override

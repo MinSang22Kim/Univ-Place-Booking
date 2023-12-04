@@ -22,24 +22,33 @@ public class Sheet {
         return !bookingInfo.isEmpty();
     }
 
-    public void print() {
-        if (bookingInfo.isEmpty()) {
-            System.out.format("(%s) - 예약자가 없습니다.\n", name);
-        } else {
-            System.out.format("(%s) - 예약자가 %d명 있습니다..\n", name, bookingInfo.size());
-            for (var booking : bookingInfo)
-                booking.print();
+    public String print() {
+        if(bookingInfo.isEmpty())
+        {
+            return (String.format("(%s) - 예약자가 없습니다.\n", name));
+        }else {
+            StringBuffer sb = new StringBuffer();
+            String s = null;
+            sb.append(String.format("(%s) - 예약자가 %d명 있습니다..\n", name, bookingInfo.size()));
+            for(var booking : bookingInfo)
+                sb.append(booking.print());
+            s = sb.toString();
+            return s;
         }
     }
 
-    public void printUser(String name, String code) {
-        if (!bookingInfo.isEmpty()) {
-            for (var booking : bookingInfo) {
-                System.out.format("\t%s(%s)  ", name, code);
-                System.out.printf("[%s] ", this.name);
-                booking.print();
+    public String printUser(String name,String code){
+        StringBuffer sb = new StringBuffer();
+        String s = null;
+        if(!bookingInfo.isEmpty()){
+            for(var booking : bookingInfo) {
+                sb.append(String.format("\t%s(%s)  ", name, code));
+                sb.append(String.format("[%s] ",this.name));
+                sb.append(booking.print());
             }
         }
+        s = sb.toString();
+        return s;
     }
 
     public boolean matches(String kwd) {

@@ -12,9 +12,9 @@ public interface Manageable {
 
     void print();
 
-    void bookingPrint();
+    String bookingPrint();
 
-    void bookingMatchesUser(String kwd);
+    String bookingMatchesUser(String kwd);
 
     void sheetbookingPrint(String sheetname);
 
