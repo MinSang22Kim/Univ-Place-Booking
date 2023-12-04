@@ -74,7 +74,7 @@ public class UIMng  implements Runnable{
 
         InitPlaceBooking();
 //        SheetSet("마루");
-        cardLayout.show(cardPanel, DEFINE.LOGIN_PANEL);
+        cardLayout.show(cardPanel, DEFINE.MENU_PANEL);
         mainFrame.setVisible(true);
     }
 
