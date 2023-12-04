@@ -70,6 +70,7 @@ public class Booking {
         int endHour = Integer.parseInt(time_split[1]);
 
         BookingInfo removeBookingInfo = sheet.findBookigInfo(ProgramMng.getIns().user, date, startHour, endHour);
+        System.out.println(removeBookingInfo);
         sheet.bookingInfo.remove(removeBookingInfo);
         ProgramMng.getIns().user.bookingList.remove(removeBookingInfo);
 

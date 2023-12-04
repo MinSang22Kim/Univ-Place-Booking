@@ -3,6 +3,7 @@ package mgr;
 import Booking.User;
 import Fields.*;
 import Rooms.*;
+import function.Check;
 
 import java.io.File;
 import java.io.IOException;
@@ -144,7 +145,9 @@ public class ProgramMng {
     public Manageable find(String name) {
         for (Manageable m : mList) {
             if (m.matches(name))
+            {
                 return m;
+            }
         }
         return null;
     }
@@ -184,7 +187,6 @@ public class ProgramMng {
         readFData();
         readUData();
         readRSData();
-
         //function 패키지에 이벤트 처리 메소드 있습니다. (static 선언 해놓음)
     }
 

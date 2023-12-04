@@ -9,9 +9,7 @@ public class User {
     public String code;
     public String name;
     public String password;
-
     public ArrayList<BookingInfo> bookingList = new ArrayList<>();
-
 
     public void read(Scanner scanner) {
         code = scanner.next();

@@ -5,17 +5,24 @@ import mgr.ProgramMng;
 import mgr.Sheet;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Check {
     public static String fieldInputText(JTextField fieldName) { //텍스트필드의 텍스트를 가져오는 메소드
         return fieldName.getText();
     }
-    public static String checkList(String loginId, ProgramMng mgr) { //로그인 정보에 따라 예약 정보를 보여주는 메소드
-        StringBuffer sb = new StringBuffer();
-        String s = null;
-        for (Manageable m : mgr.mList)
-            sb.append(m.bookingMatchesUser(loginId));
-        s = sb.toString();
+    public static ArrayList<String> checkList(String loginId) { //로그인 정보에 따라 예약 정보를 보여주는 메소드
+        ArrayList<String> s = new ArrayList<>();
+        for (Manageable m : ProgramMng.getIns().mList)
+        {
+            String info = m.bookingMatchesUser(loginId);
+            if(!info.isEmpty())
+                s.add(info);
+        }
+
+//        for(var it : s)
+//            System.out.println(it);
         return s;
     }
     public static String search(String field1, String field2, ProgramMng mgr) { //검색 기능

@@ -1,6 +1,7 @@
 package UI;
 
 import UI.Finder.BookingFinderPanel;
+import UI.Finder.ReviewPanel;
 import UI.Framework.KGULogo;
 import UI.LogIn.*;
 import UI.PlaceBooking.*;
@@ -21,6 +22,7 @@ public class UIMng  implements Runnable{
     SportSelectPanel sportSelectPanel;
     StudySelectPanel studySelectPanel;
     BookingFinderPanel bookingFinderPanel;
+    ReviewPanel reviewPanel;
 
     public String selectPlaceName;
     public String selectSheetName;
@@ -74,7 +76,7 @@ public class UIMng  implements Runnable{
 
         InitPlaceBooking();
 //        SheetSet("마루");
-        cardLayout.show(cardPanel, DEFINE.MENU_PANEL);
+        cardLayout.show(cardPanel, DEFINE.LOGIN_PANEL);
         mainFrame.setVisible(true);
     }
 
@@ -87,6 +89,7 @@ public class UIMng  implements Runnable{
         sportSelectPanel = new SportSelectPanel();
         studySelectPanel = new StudySelectPanel();
         bookingFinderPanel = new BookingFinderPanel();
+        reviewPanel = new ReviewPanel();
 
         cardPanel.add(logInPanel, DEFINE.LOGIN_PANEL);
         cardPanel.add(menuPanel, DEFINE.MENU_PANEL);
@@ -95,6 +98,7 @@ public class UIMng  implements Runnable{
         cardPanel.add(studySelectPanel, DEFINE.STUDY_SELECT_PANEL);
         cardPanel.add(placeBookingPanel, DEFINE.SHEET_SELECT_PANEL);
         cardPanel.add(bookingFinderPanel, DEFINE.BOOKING_FINDER_PANEL);
+        cardPanel.add(reviewPanel, DEFINE.REVIEW_PANEL);
     }
 
     public void showPanel(String name)
@@ -193,6 +197,16 @@ public class UIMng  implements Runnable{
                 }
                 break;
         }
+    }
+
+    public void UpdateBookingTable()
+    {
+        bookingFinderPanel.UpdateTable();
+    }
+
+    public void AddBookingRow(String content)
+    {
+        bookingFinderPanel.AddRow(content);
     }
 
     public Point getFontSize(FontMetrics font, String text)

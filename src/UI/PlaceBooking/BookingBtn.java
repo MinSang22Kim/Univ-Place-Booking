@@ -3,6 +3,7 @@ package UI.PlaceBooking;
 import UI.DEFINE;
 import UI.UIMng;
 import function.Booking;
+import function.Check;
 import mgr.ProgramMng;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 public class BookingBtn extends JButton {
     final Point bookingPos = new Point(850,450);
     final Point area = new Point(100,50);
+
     public BookingBtn()
     {
         setText(DEFINE.BOOKING_BTN);
@@ -37,14 +39,12 @@ public class BookingBtn extends JButton {
                         Booking.booking(UIMng.getIns().selectPlaceName, UIMng.getIns().selectSheetName,
                                 UIMng.getIns().selectDate, String.format("%02d-%02d", UIMng.getIns().startTime, UIMng.getIns().endTime));
                         JOptionPane.showMessageDialog(null, "예약이 완료되었습니다..");
+//                        UIMng.getIns().UpdateBookingTable();
+//                        Check.checkList("202211430");
                     }else
                     {
                         JOptionPane.showMessageDialog(null, "해당 시간에 이미 예약자가 있어 다른 시간대 또는 장소를 바꿔서 다시 시도하세요.");
                     }
-                }
-                else
-                {
-
                 }
             }
         });

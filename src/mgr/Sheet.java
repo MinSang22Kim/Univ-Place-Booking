@@ -42,8 +42,9 @@ public class Sheet {
         String s = null;
         if(!bookingInfo.isEmpty()){
             for(var booking : bookingInfo) {
-                sb.append(String.format("\t%s(%s)  ", name, code));
-                sb.append(String.format("[%s] ",this.name));
+                //sb.append(String.format("\t%s(%s)  ", name, code));
+                sb.append(String.format("%s/%s/", name, this.name));
+                //sb.append(String.format("[%s] ",this.name));
                 sb.append(booking.print());
             }
         }
