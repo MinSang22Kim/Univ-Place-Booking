@@ -76,7 +76,7 @@ public class TeamProjectRoom implements Manageable {
         String s = null;
         for (BookingInfo b : bookingInfos) {
             if (b.matches(kwd)) {
-                sb.append(String.format("\t%s(%s)  ", name, code));
+                sb.append(String.format("\t%s(%s)  ", name, kwd));
                 sb.append(b.print());
             }
         }

@@ -44,7 +44,8 @@ public class SoccerField implements Manageable {
         String s = null;
         for (var sheet : sheets) {
             if (sheet.matches(kwd)) {
-                sb.append(sheet.printUser(name, code));
+                sb.append(sheet.printUser(name, kwd));
+                sb.append("@");
             }
         }
         s = sb.toString();

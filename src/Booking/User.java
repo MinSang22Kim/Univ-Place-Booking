@@ -11,6 +11,14 @@ public class User {
     public String password;
     public ArrayList<BookingInfo> bookingList = new ArrayList<>();
 
+    public BookingInfo findBookigInfo(User user, String date, int startHour, int endHour) {
+        for (BookingInfo b : bookingList) {
+            if (b.user.equals(user) && b.date.equals(date) && b.startHour == startHour && b.endHour == endHour)
+                return b;
+        }
+        return null;
+    }
+
     public void read(Scanner scanner) {
         code = scanner.next();
         name = scanner.next();
@@ -37,8 +45,11 @@ public class User {
 
     public boolean check(String date, int startHour, int endHour) {
         for (BookingInfo s : bookingList) {
-            if (s.date.equals(date) && s.startHour == startHour && s.endHour == endHour)
+            if (s.date.equals(date) && ((startHour >= s.startHour && startHour < s.endHour) ||
+                        (endHour > s.startHour && endHour <= s.endHour)
+                )){
                 return true;
+            }
         }
         return false;
     }

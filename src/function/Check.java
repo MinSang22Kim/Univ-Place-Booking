@@ -3,27 +3,33 @@ package function;
 import mgr.Manageable;
 import mgr.ProgramMng;
 import mgr.Sheet;
+import Booking.User;
+import Booking.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Check {
     public static String fieldInputText(JTextField fieldName) { //텍스트필드의 텍스트를 가져오는 메소드
         return fieldName.getText();
     }
-    public static ArrayList<String> checkList(String loginId) { //로그인 정보에 따라 예약 정보를 보여주는 메소드
+    public static ArrayList<String> checkList(User user) { //로그인 정보에 따라 예약 정보를 보여주는 메소드
         ArrayList<String> s = new ArrayList<>();
         for (Manageable m : ProgramMng.getIns().mList)
         {
-            String info = m.bookingMatchesUser(loginId);
-            if(!info.isEmpty())
-                s.add(info);
+            String info = m.bookingMatchesUser(user.code);
+            if(!info.isEmpty()) {
+                StringTokenizer st = new StringTokenizer(info,"!@");
+                while(st.hasMoreTokens()){
+                    String a = st.nextToken();
+                    s.add(a);
+                }
+            }
         }
+       return s;
 
-//        for(var it : s)
-//            System.out.println(it);
-        return s;
     }
     public static String search(String field1, String field2, ProgramMng mgr) { //검색 기능
         if(!(field1.contentEquals("ALL") || field1.contains("팀프A")

@@ -37,15 +37,18 @@ public class Sheet {
         }
     }
 
-    public String printUser(String name,String code){
+    public String printUser(String name,String ucode){
         StringBuffer sb = new StringBuffer();
         String s = null;
         if(!bookingInfo.isEmpty()){
             for(var booking : bookingInfo) {
-                //sb.append(String.format("\t%s(%s)  ", name, code));
-                sb.append(String.format("%s/%s/", name, this.name));
-                //sb.append(String.format("[%s] ",this.name));
-                sb.append(booking.print());
+                if(booking.matches(ucode)) {
+                    //sb.append(String.format("\t%s(%s)  ", name, code));
+                    sb.append(String.format("%s/%s/", name, this.name));
+                    //sb.append(String.format("[%s] ",this.name));
+                    sb.append(booking.printUser(ucode));
+                    sb.append("!");
+                }
             }
         }
         s = sb.toString();
@@ -53,11 +56,19 @@ public class Sheet {
     }
 
     public boolean matches(String kwd) {
-        if (name.equals(kwd))
-            return true;
+//        if (name.equals(kwd))
+//            return true;
 
         for (var booking : bookingInfo) {
             if (booking.matches(kwd))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean matchUser(User user){
+        for (var booking : bookingInfo) {
+            if (booking.matchUser(user))
                 return true;
         }
         return false;

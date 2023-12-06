@@ -1,5 +1,6 @@
 package mgr;
 
+import Booking.BookingInfo;
 import Booking.User;
 import Fields.*;
 import Rooms.*;
@@ -17,7 +18,7 @@ public class ProgramMng {
     public ArrayList<String> weekDates = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     Scanner scanner = new Scanner(System.in);
-    public ArrayList<Manageable> mList = new ArrayList<>();
+    public static ArrayList<Manageable> mList = new ArrayList<>();
 
     public User user = null;
 
@@ -137,8 +138,8 @@ public class ProgramMng {
             String[] time_split = time.split("-");
             int starttime = Integer.parseInt(time_split[0]);
             int endtime = Integer.parseInt(time_split[1]);
-            m.IsBooking(s, u, date, starttime, endtime);
-
+            m.addBooking(s, u, date, starttime, endtime);
+            u.bookingList.add(new BookingInfo(u,date,starttime,endtime));
         }
     }
 
@@ -167,7 +168,7 @@ public class ProgramMng {
 
     }
 
-    User findUser(String code) {
+    public static User findUser(String code) {
         for (User u : userList) {
             if (u.matches(code))
                 return u;

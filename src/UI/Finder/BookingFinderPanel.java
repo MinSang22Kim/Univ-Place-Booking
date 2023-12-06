@@ -3,9 +3,9 @@ package UI.Finder;
 import UI.DEFINE;
 import UI.NonEditableTableModel;
 import UI.UIMng;
-import function.Booking;
 import function.Check;
 import mgr.ProgramMng;
+import function.Booking;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -52,7 +52,7 @@ public class BookingFinderPanel extends JPanel {
     public void UpdateTable()
     {
         ClearModel();
-        ArrayList<String> s = Check.checkList(ProgramMng.getIns().user.name);
+        ArrayList<String> s = Check.checkList(ProgramMng.getIns().user);
         for(var it : s)
             AddRow(it);
     }
@@ -65,6 +65,7 @@ public class BookingFinderPanel extends JPanel {
         String placename = split[0];
         String sheetname = split[1];
         String time = split[4] + "/" + split[5];
+        System.out.println(content);
 
         model.addRow(new Object[]{name, code, placename, sheetname, time, "취소"});
     }

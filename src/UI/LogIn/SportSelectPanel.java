@@ -22,12 +22,19 @@ public class SportSelectPanel extends JPanel {
     public SportSelectPanel()
     {
         setLayout(null);
+
+        button1.setName("풋살장");
+        button2.setName("축구장");
+        button3.setName("농구장");
+        button4.setName("족구장");
+        button5.setName("테니스장");
+        button6.setName("탁구장");
         button1.setBounds(121, 257, 130, 50);
         button1.setFont(UIMng.getIns().menuFont);
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getIns().SelectPlaceToBooking(button1.getText());
+                UIMng.getIns().SelectPlaceToBooking(button1.getName());
             }
         });
         add(button1);
@@ -37,7 +44,7 @@ public class SportSelectPanel extends JPanel {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getIns().SelectPlaceToBooking(button2.getText());
+                UIMng.getIns().SelectPlaceToBooking(button2.getName());
             }
         });
         add(button2);
@@ -47,7 +54,7 @@ public class SportSelectPanel extends JPanel {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getIns().SelectPlaceToBooking(button3.getText());
+                UIMng.getIns().SelectPlaceToBooking(button3.getName());
             }
         });
         add(button3);
@@ -57,7 +64,7 @@ public class SportSelectPanel extends JPanel {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getIns().SelectPlaceToBooking(button4.getText());
+                UIMng.getIns().SelectPlaceToBooking(button4.getName());
             }
         });
         add(button4);
@@ -67,7 +74,7 @@ public class SportSelectPanel extends JPanel {
         button5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getIns().SelectPlaceToBooking(button5.getText());
+                UIMng.getIns().SelectPlaceToBooking(button5.getName());
             }
         });
         add(button5);
@@ -77,7 +84,7 @@ public class SportSelectPanel extends JPanel {
         button6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIMng.getIns().SelectPlaceToBooking(button6.getText());
+                UIMng.getIns().SelectPlaceToBooking(button6.getName());
             }
         });
         add(button6);
